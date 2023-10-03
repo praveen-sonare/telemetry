@@ -45,10 +45,8 @@ public class SecurityConfig {
         an OAuth2 Resource Server, using JWT validation.
         */
         http.authorizeRequests()
-                //.mvcMatchers("/api/public").permitAll()
-                .mvcMatchers("/api/user").permitAll()
+                .mvcMatchers("/api/public").permitAll()
                 .mvcMatchers("/api/getTelemetry/{uuid}").authenticated()
-                .mvcMatchers("/api/private-scoped").hasAuthority("SCOPE_read:messages")
                 .and().cors()
                 .and().csrf().disable()
                 .oauth2ResourceServer().jwt();

@@ -51,14 +51,4 @@ public class Controller {
             return new ResponseEntity<>(HttpStatus.REQUEST_TIMEOUT);
         }
     }
-
-    @GetMapping(value = "/private-scoped")
-    public Message privateScopedEndpoint() {
-        return new Message("All good. You can see this because you are Authenticated with a Token granted the 'read:messages' scope");
-    }
-
-    @PostMapping({"/user"})
-    public void createUser(@RequestBody @Valid UserRequest request){
-        auth0Service.createUser(request.getEmail(), request.getPassword());
-    }
 }

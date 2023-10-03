@@ -1,18 +1,6 @@
 debug: true
-server:
-  port: 9000
+server.port: 9000
 
-auth0:
-  # Replace with the API Identifier for your Auth0 API.
-  audience: fib7waTwviT4oqu0fAWh90ygh95UGpXD
-
-# The following is standard Spring Security OAuth2 configuration.
-spring:
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          # Replace with the domain of your Auth0 tenant.
-          # Note the trailing slash is important!
-          issuer-uri: https://fleetscooterson.us.auth0.com/
+auth0.audience: fib7waTwviT4oqu0fAWh90ygh95UGpXD
+spring.security.oauth2.resourceserver.jwt.issuer-uri: https://fleetscooterson.us.auth0.com/
           
