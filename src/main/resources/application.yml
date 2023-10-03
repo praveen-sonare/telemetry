@@ -3,4 +3,13 @@ server.port: 9000
 
 auth0.audience: fib7waTwviT4oqu0fAWh90ygh95UGpXD
 spring.security.oauth2.resourceserver.jwt.issuer-uri: https://fleetscooterson.us.auth0.com/
+
+
+spring.jpa.show-sql: true
+spring.jpa.hibernate.ddl-auto: create-drop
+spring.datasource.driverClassName: org.postgresql.Driver
+spring.datasource.url: jdbc:postgresql://localhost:5432/telemetry
+spring.datasource.username: postgres
+spring.datasource.password: postgres
+spring.jpa.properties.hibernate.default_schema: public
           
