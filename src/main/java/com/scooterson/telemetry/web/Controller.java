@@ -35,7 +35,7 @@ public class Controller {
         particleService.addParticleData(particleData);
     }
 
-    @GetMapping(value = "/getTelemetry/{uuid}")
+    @GetMapping(value = "/getTelemetry/{particleId}")
     public ResponseEntity<String> getTelemetry(JwtAuthenticationToken principal, @PathVariable String particleId) {
         log.info("All good. You can see this because you are Authenticated.");
         log.info("***** start fetching telemetry for vehicle : " + particleId);
