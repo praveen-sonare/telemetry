@@ -7,11 +7,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TelemetryRequest {
-    JSONObject event;
+    String event;
     JSONObject data;
-    JSONObject published_at;
-    JSONObject coreid;
-    JSONObject userid;
-    JSONObject fw_version;
-    JSONObject isPublic;
+    String published_at;
+    String coreid;
+    String userid;
+    String fw_version;
+    String isPublic;
 }

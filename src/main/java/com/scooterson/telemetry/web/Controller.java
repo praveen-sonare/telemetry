@@ -36,14 +36,15 @@ public class Controller {
 
     @PostMapping(value = "/telemetry")
     public void saveParticleData(@RequestBody TelemetryRequest body) {
-        log.info(body.getEvent().toString());
-        log.info(body.getData().toString());
-        log.info(body.getPublished_at().toString());
-        log.info(body.getCoreid().toString());
-        log.info(body.getUserid().toString());
-        log.info(body.getFw_version().toString());
-        log.info(body.getIsPublic().toString());
         log.info("All good. You DO NOT need to be authenticated to call. BODY : [" + body + "]");
+        log.info(body.getEvent());
+        log.info(body.getData().toString());
+        log.info(body.getPublished_at());
+        log.info(body.getCoreid());
+        log.info(body.getUserid());
+        log.info(body.getFw_version());
+        log.info(body.getIsPublic());
+
     }
 
     @GetMapping(value = "/getTelemetry/{uuid}")
