@@ -18,6 +18,6 @@ public class Particle {
     private int id;
     @Column(name = "particle_id")
     private String particleId;
-    @Column(name = "payload")
+    @Column(name = "payload", columnDefinition = "text")
     private String payload;
 }
