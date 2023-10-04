@@ -5,6 +5,7 @@ import com.scooterson.telemetry.UserRequest;
 import com.scooterson.telemetry.model.Message;
 import com.nimbusds.jose.shaded.json.JSONObject;
 import com.nimbusds.jose.shaded.json.parser.JSONParser;
+import com.scooterson.telemetry.request.TelemetryRequest;
 import com.scooterson.telemetry.security.SecurityConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -34,7 +35,14 @@ public class Controller {
     }
 
     @PostMapping(value = "/telemetry")
-    public void saveParticleData(@RequestBody @Valid JSONObject body) {
+    public void saveParticleData(@RequestBody TelemetryRequest body) {
+        log.info(body.getEvent().toString());
+        log.info(body.getData().toString());
+        log.info(body.getPublished_at().toString());
+        log.info(body.getCoreid().toString());
+        log.info(body.getUserid().toString());
+        log.info(body.getFw_version().toString());
+        log.info(body.getIsPublic().toString());
         log.info("All good. You DO NOT need to be authenticated to call. BODY : [" + body + "]");
     }
 
