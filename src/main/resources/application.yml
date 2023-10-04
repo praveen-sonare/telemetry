@@ -6,11 +6,11 @@ spring.security.oauth2.resourceserver.jwt.issuer-uri: https://fleetscooterson.us
 
 #below are required for database
 
-#spring.jpa.show-sql: true
-#spring.jpa.hibernate.ddl-auto: create-drop
-#spring.datasource.driverClassName: org.postgresql.Driver
-#spring.datasource.url: jdbc:postgresql://localhost:5432/telemetry
-#spring.datasource.username: postgres
-#spring.datasource.password: postgres
-#spring.jpa.properties.hibernate.default_schema: public
+spring.jpa.show-sql: true
+spring.jpa.hibernate.ddl-auto: create-drop
+spring.datasource.driverClassName: org.postgresql.Driver
+spring.datasource.url: jdbc:postgresql://ec2-54-255-203-116.ap-southeast-1.compute.amazonaws.com:5432/telemetry
+spring.datasource.username: postgres
+spring.datasource.password: postgres
+spring.jpa.properties.hibernate.default_schema: public
 #spring.sql.init.mode: always
