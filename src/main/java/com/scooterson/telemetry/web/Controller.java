@@ -1,21 +1,18 @@
 package com.scooterson.telemetry.web;
 
+import com.nimbusds.jose.shaded.json.parser.ParseException;
 import com.scooterson.telemetry.Auth0Service;
-import com.scooterson.telemetry.UserRequest;
-import com.scooterson.telemetry.model.Message;
 import com.nimbusds.jose.shaded.json.JSONObject;
 import com.nimbusds.jose.shaded.json.parser.JSONParser;
-import com.scooterson.telemetry.request.TelemetryRequest;
 import com.scooterson.telemetry.security.SecurityConfig;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 /**
  * Handles requests to "/api" endpoints.
@@ -35,15 +32,32 @@ public class Controller {
     }
 
     @PostMapping(value = "/telemetry")
-    public void saveParticleData(@RequestBody TelemetryRequest body) {
-        log.info("All good. You DO NOT need to be authenticated to call. BODY : [" + body + "]");
-        log.info(body.getEvent());
-        log.info(body.getData().toString());
-        log.info(body.getPublished_at());
-        log.info(body.getCoreid());
-        log.info(body.getUserid());
-        log.info(body.getFw_version());
-        log.info(body.getIsPublic());
+    public void saveParticleData(@RequestBody String particleData) {
+        log.info("All good. You DO NOT need to be authenticated to call. BODY : [" + particleData + "]");
+        try {
+            JSONParser parser = new JSONParser();
+            JSONObject json = (JSONObject) parser.parse(particleData);
+            String event = (String) json.getOrDefault("event", "");
+            String data = (String) json.getOrDefault("data", "");
+            String published_at = (String) json.getOrDefault("published_at", "");
+            String coreid = (String) json.getOrDefault("coreid", "");
+            String userid = (String) json.getOrDefault("userid", "");
+            String fw_version = (String) json.getOrDefault("fw_version", "");
+            String ispublic = (String) json.getOrDefault("public", "");
+
+            log.info("event : " + event);
+            log.info("data : " + data);
+            log.info("published_at : " + published_at);
+            log.info("coreid : " + coreid);
+            log.info("userid : " + userid);
+            log.info("fw_version : " + fw_version);
+            log.info("public : " + ispublic);
+        } catch (DataAccessException | ParseException ex)
+        {
+            log.info("EXCEPTION: " + ex.toString());
+
+        }
+
 
     }
 
