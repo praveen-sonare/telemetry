@@ -42,8 +42,8 @@ public class Controller {
             String published_at = (String) json.getOrDefault("published_at", "");
             String coreid = (String) json.getOrDefault("coreid", "");
             String userid = (String) json.getOrDefault("userid", "");
-            String fw_version = (String) json.getOrDefault("fw_version", "");
-            String ispublic = (String) json.getOrDefault("public", "");
+            int fw_version = (int) json.getOrDefault("fw_version", "");
+            boolean ispublic = (boolean) json.getOrDefault("public", "");
 
             log.info("event : " + event);
             log.info("data : " + data);
