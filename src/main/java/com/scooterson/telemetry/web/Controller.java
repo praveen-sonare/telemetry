@@ -1,12 +1,9 @@
 package com.scooterson.telemetry.web;
 
-import com.nimbusds.jose.shaded.json.parser.ParseException;
 import com.scooterson.telemetry.Auth0Service;
-import com.nimbusds.jose.shaded.json.JSONObject;
-import com.nimbusds.jose.shaded.json.parser.JSONParser;
 import com.scooterson.telemetry.security.SecurityConfig;
+import com.scooterson.telemetry.service.ParticleService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,52 +23,26 @@ import org.springframework.web.bind.annotation.*;
 public class Controller {
 
     private final Auth0Service auth0Service;
+    private final ParticleService particleService;
     @Autowired
-    Controller(Auth0Service auth0Service){
+    Controller(Auth0Service auth0Service, ParticleService particleService){
         this.auth0Service = auth0Service;
+        this.particleService = particleService;
     }
 
     @PostMapping(value = "/telemetry")
     public void saveParticleData(@RequestBody String particleData) {
-        log.info("All good. You DO NOT need to be authenticated to call. BODY : [" + particleData + "]");
-        try {
-            JSONParser parser = new JSONParser();
-            JSONObject json = (JSONObject) parser.parse(particleData);
-            String event = (String) json.getOrDefault("event", "");
-            String data = (String) json.getOrDefault("data", "");
-            String published_at = (String) json.getOrDefault("published_at", "");
-            String coreid = (String) json.getOrDefault("coreid", "");
-            String userid = (String) json.getOrDefault("userid", "");
-            int fw_version = (int) json.getOrDefault("fw_version", "");
-            boolean ispublic = (boolean) json.getOrDefault("public", "");
-
-            log.info("event : " + event);
-            log.info("data : " + data);
-            log.info("published_at : " + published_at);
-            log.info("coreid : " + coreid);
-            log.info("userid : " + userid);
-            log.info("fw_version : " + fw_version);
-            log.info("public : " + ispublic);
-        } catch (DataAccessException | ParseException ex)
-        {
-            log.info("EXCEPTION: " + ex.toString());
-
-        }
-
-
+        particleService.addParticleData(particleData);
     }
 
     @GetMapping(value = "/getTelemetry/{uuid}")
-    public ResponseEntity<JSONObject> getTelemetry(JwtAuthenticationToken principal, @PathVariable String uuid) {
+    public ResponseEntity<String> getTelemetry(JwtAuthenticationToken principal, @PathVariable String particleId) {
         log.info("All good. You can see this because you are Authenticated.");
-        log.info("***** start fetching telemetry for vehicle : " + uuid);
-        try {;
-            String telemetry = "{\"odo\": 11}";
-            JSONParser parser = new JSONParser();
-            return new ResponseEntity<>((JSONObject) parser.parse(telemetry), HttpStatus.OK);
-        } catch (Exception e) {
-            log.info(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.REQUEST_TIMEOUT);
-        }
+        log.info("***** start fetching telemetry for vehicle : " + particleId);
+        String response = particleService.lookUp(particleId);
+        if(response != null && !response.isEmpty())
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }
