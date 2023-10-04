@@ -34,7 +34,7 @@ public class App {
                 .components(new Components().addSecuritySchemes
                         ("Bearer Authentication", createAPIKeyScheme()))
                 .info(new Info().title("Particle Telemetry")
-                        .description("Some custom description of API.")
+                        .description("Analysis data storage.")
                         .version("1.0").contact(new Contact().name("Praveen Sonare")
                                 .email( "praveensonare007@gmail.com"))
                         .license(new License().name("License of API")
