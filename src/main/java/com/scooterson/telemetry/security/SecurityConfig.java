@@ -48,7 +48,7 @@ public class SecurityConfig {
         */
         http.authorizeRequests()
                 .mvcMatchers("/api/public").permitAll()
-                .mvcMatchers("/api/getTelemetry/{uuid}").authenticated()
+                .mvcMatchers("/api/getTelemetry/{particleId}").authenticated()
                 .and().cors()
                 .and().csrf().disable()
                 .oauth2ResourceServer().jwt();
