@@ -1,6 +1,7 @@
 debug: true
 server.port: 9000
 auth0.audience: fib7waTwviT4oqu0fAWh90ygh95UGpXD
+auth0.backendClient: https://fleetscooterson.us.auth0.com/api/v2/
 # The following is standard Spring Security OAuth2 configuration.
 spring.security.oauth2.resourceserver.jwt.issuer-uri: https://fleetscooterson.us.auth0.com/
 
